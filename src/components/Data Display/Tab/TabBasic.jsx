@@ -47,6 +47,7 @@ const TabBasic = ({
     onTabScroll,
     data
 }) => {
+    console.log(`activeKey========> ${activeKey}`);
     return (
         <Tabs
             activeKey={activeKey}
@@ -76,9 +77,7 @@ const TabBasic = ({
             <TabPane tab={'TEST2'} key={"2"}>
                 Test
             </TabPane> */}
-
             {data.map(item => (<TabPaneItem closeIcon={item.closeIcon} key={item.key} tab={item.tab} closable={item.closable}>{item.content}</TabPaneItem>))}
-
         </Tabs>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useArgs } from '@storybook/client-api';
 import Index from './Index';
 import TabBasic from './TabBasic';
 import TabPaneItem from './TabPaneItem';
@@ -72,28 +73,30 @@ export default {
     ], //내보내기 시 앞 뒤로 데코레이션 설정
 };
 
-const TabTemplate = (args) => <TabBasic {...args} />
+const TabTemplate = ({ ...args }) => {
+    const [{ activeKey }, updateArgs] = useArgs();
+    const handleChange = (activeKey) => {
+        // console.log('handleChange');
+        // updateArgs({ activeKey: activeKey })
+    }
+    const handleTabClick = (targetKey, action) => {
+        // console.log(targetKey);
+        // console.log(action);
+        updateArgs({ activeKey: targetKey })
+    }
+    return (<TabBasic {...args} onChange={handleChange} onTabClick={handleTabClick} />)
+}
 const tabBarStyle = {
 
 };
 
-const handleChange = (activeKey) => {
-    console.log('handleChange');
-    console.log(activeKey);
-}
-
-const handleTabClick = (targetKey, action) => {
-    console.log(targetKey);
-    console.log(action);
-}
-
 const handleEdit = (targetKey, action) => {
-    console.log(targetKey);
-    console.log(action);
+    //console.log(targetKey);
+    //console.log(action);
 }
 
 const handleTabScroll = (direction) => {
-    console.log(direction);
+    //console.log(direction);
 }
 
 export const Basic = TabTemplate.bind({});
@@ -104,9 +107,9 @@ Basic.args = {
     tabBarStyle: tabBarStyle,
     data: TabPaneItems(),
     // renderTabBar: () => { },
-    onChange: handleChange,
+    // onChange: handleChange,
     onEdit: handleEdit,
-    onTabClick: handleTabClick,
+    // onTabClick: handleTabClick,
     onTabScroll: handleTabScroll,
 }
 
