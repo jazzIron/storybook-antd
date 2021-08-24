@@ -1,7 +1,6 @@
 import React from 'react';
 import { Tabs } from 'antd';
-
-const { TabPane } = Tabs;
+import TabPaneItem from './TabPaneItem';
 
 /* API */
 /** Tab
@@ -46,11 +45,11 @@ const TabBasic = ({
     onEdit,
     onTabClick,
     onTabScroll,
-    children
+    data
 }) => {
     return (
         <Tabs
-            //activeKey={activeKey}
+            activeKey={activeKey}
             addIcon={addIcon}
             animated={animated}
             centered={centered}
@@ -65,12 +64,21 @@ const TabBasic = ({
             tabPosition={tabPosition}
             destroyInactiveTabPane={destroyInactiveTabPane}
             type={type}
-            // onChange={onChange}
+            onChange={onChange}
             onEdit={onEdit}
             onTabClick={onTabClick}
             onTabScroll={onTabScroll}
         >
-            {children}
+            {/* {children} */}
+            {/* <TabPane tab={'TEST'} key={"1"}>
+                Test
+            </TabPane>
+            <TabPane tab={'TEST2'} key={"2"}>
+                Test
+            </TabPane> */}
+
+            {data.map(item => (<TabPaneItem closeIcon={item.closeIcon} key={item.key} tab={item.tab} closable={item.closable}>{item.content}</TabPaneItem>))}
+
         </Tabs>
     )
 }

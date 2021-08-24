@@ -15,6 +15,7 @@ const TabPaneItems = () => {
             content: `TabPaneItems ===> ${i}`
         });
     }
+    return listData;
     return (listData.map(item => (<TabPaneItem closeIcon={item.closeIcon} key={item.key} tab={item.tab} closable={item.closable}>{item.content}</TabPaneItem>)))
 }
 
@@ -23,14 +24,12 @@ export default {
     title: "Data Display/Tab", //Storybook 앱의 사이드바에서 컴포넌트를 참조하는 방법
     excludeStoires: "", //Storybook에서 스토리를 내보낼 때 렌더링에서 제외 하는것
     parameters: {
-        actions: {
-        }
     }, //callback event 수신 
     argTypes: {
-        activeKey: {
-            defaultValue: '1',
-            control: { type: 'text' },
-        },
+        // activeKey: {
+        //     defaultValue: '1',
+        //     control: { type: 'text' },
+        // },
         animated: {
             defaultValue: true,
             options: [true, false],
@@ -78,18 +77,37 @@ const tabBarStyle = {
 
 };
 
+const handleChange = (activeKey) => {
+    console.log('handleChange');
+    console.log(activeKey);
+}
+
+const handleTabClick = (targetKey, action) => {
+    console.log(targetKey);
+    console.log(action);
+}
+
+const handleEdit = (targetKey, action) => {
+    console.log(targetKey);
+    console.log(action);
+}
+
+const handleTabScroll = (direction) => {
+    console.log(direction);
+}
+
 export const Basic = TabTemplate.bind({});
 Basic.args = {
     addIcon: '',
     moreIcon: '',
     tabBarExtraContent: '',
     tabBarStyle: tabBarStyle,
-    children: TabPaneItems(),
+    data: TabPaneItems(),
     // renderTabBar: () => { },
-    onChange: () => { },
-    onEdit: (targeKey, action) => { },
-    onTabClick: (key, event) => { },
-    onTabScroll: (direction) => { }
+    onChange: handleChange,
+    onEdit: handleEdit,
+    onTabClick: handleTabClick,
+    onTabScroll: handleTabScroll,
 }
 
 Basic.propTypes = {

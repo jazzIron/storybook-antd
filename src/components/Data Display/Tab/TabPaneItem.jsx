@@ -21,7 +21,7 @@ const TabPaneItem = ({
         <TabPane
             closeIcon={closeIcon}
             closable={closable}
-            forceRender={forceRender}
+            forceRender={false}
             tab={tab}
             key={key}
         >
