@@ -32,7 +32,6 @@ const CollapseBasic = ({
     onChange,
     children
 }) => {
-    console.log(children);
     return (
         <Collapse
             accordion={accordion}

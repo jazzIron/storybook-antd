@@ -17,16 +17,19 @@ const TabPaneItem = ({
     closable,
     children,
 }) => {
+    console.log(children);
     return (
-        <TabPane
-            closeIcon={closeIcon}
-            closable={closable}
-            forceRender={false}
-            tab={tab}
-            key={key}
-        >
-            {children}
-        </TabPane>
+        <TabPane tab='TEST@@@'>jaksldsjakdl</TabPane>
+        // <TabPane
+        //     closeIcon={closeIcon}
+        //     closable={closable}
+        //     forceRender={false}
+        //     tab={tab}
+        //     key={key}
+        // >
+        //     TEST ITEMS
+        //     {/* {children} */}
+        // </TabPane>
     );
 };
 

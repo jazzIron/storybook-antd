@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tabs } from 'antd';
-import TabPaneItem from './TabPaneItem';
+// import TabPaneItem from './TabPaneItem';
+
+const { TabPane } = Tabs;
 
 /* API */
 /** Tab
@@ -25,6 +27,14 @@ import TabPaneItem from './TabPaneItem';
  * onTabScroll	function({ direction: left | right | top | bottom })
  */
 
+
+/** Tabs.TabPane
+ * closeIcon	ReactNode
+ * forceRender	boolean	FALSE
+ * key	string
+ * tab	ReactNode
+ */
+
 const TabBasic = ({
     activeKey,
     addIcon,
@@ -47,7 +57,6 @@ const TabBasic = ({
     onTabScroll,
     data
 }) => {
-    console.log(`activeKey========> ${activeKey}`);
     return (
         <Tabs
             activeKey={activeKey}
@@ -69,15 +78,18 @@ const TabBasic = ({
             onEdit={onEdit}
             onTabClick={onTabClick}
             onTabScroll={onTabScroll}
+            data={data}
         >
-            {/* {children} */}
-            {/* <TabPane tab={'TEST'} key={"1"}>
-                Test
-            </TabPane>
-            <TabPane tab={'TEST2'} key={"2"}>
-                Test
-            </TabPane> */}
-            {data.map(item => (<TabPaneItem closeIcon={item.closeIcon} key={item.key} tab={item.tab} closable={item.closable}>{item.content}</TabPaneItem>))}
+            {data.map(item =>
+                <TabPane
+                    closeIcon={item.closeIcon}
+                    closable={item.closable}
+                    forceRender={false}
+                    tab={item.tab}
+                    key={item.key}
+                >
+                    {item.content}
+                </TabPane>)}
         </Tabs>
     )
 }

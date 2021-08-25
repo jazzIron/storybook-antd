@@ -17,7 +17,7 @@ const TabPaneItems = () => {
         });
     }
     return listData;
-    return (listData.map(item => (<TabPaneItem closeIcon={item.closeIcon} key={item.key} tab={item.tab} closable={item.closable}>{item.content}</TabPaneItem>)))
+    //return (listData.map(item => (<TabPaneItem closeIcon={item.closeIcon} key={item.key} tab={item.tab} closable={item.closable}>{item.content}</TabPaneItem>)))
 }
 
 export default {
@@ -31,6 +31,16 @@ export default {
         //     defaultValue: '1',
         //     control: { type: 'text' },
         // },
+        type: {
+            defaultValue: 'line',
+            options: ['line', 'card', 'editable-card'],
+            control: { type: 'radio' },
+        },
+        size: {
+            defaultValue: 'default',
+            options: ['default', 'large', 'small'],
+            control: { type: 'radio' },
+        },
         animated: {
             defaultValue: true,
             options: [true, false],
@@ -46,11 +56,6 @@ export default {
             options: [true, false],
             control: { type: 'radio' }
         },
-        size: {
-            defaultValue: 'default',
-            options: ['default', 'large', 'small'],
-            control: { type: 'radio' },
-        },
         tabBarGutter: { control: { type: 'number' }, },
         tabBarStyle: { control: { type: 'object' }, },
         tabPosition: {
@@ -63,11 +68,7 @@ export default {
             options: [true, false],
             control: { type: 'radio' }
         },
-        type: {
-            defaultValue: 'line',
-            options: ['line', 'card', 'editable-card'],
-            control: { type: 'radio' },
-        },
+
     }, //각각의 스토리에서 인수(args)의 행동 방식을 명시
     decorators: [(Story) => (<Index><Story /></Index>)
     ], //내보내기 시 앞 뒤로 데코레이션 설정
@@ -79,25 +80,19 @@ const TabTemplate = ({ ...args }) => {
         // console.log('handleChange');
         // updateArgs({ activeKey: activeKey })
     }
-    const handleTabClick = (targetKey, action) => {
-        // console.log(targetKey);
-        // console.log(action);
-        updateArgs({ activeKey: targetKey })
+    const handleTabClick = (targetKey, action) => updateArgs({ activeKey: targetKey })
+    const handleEdit = (targetKey, action) => {
     }
-    return (<TabBasic {...args} onChange={handleChange} onTabClick={handleTabClick} />)
+
+    const handleTabScroll = (direction) => {
+        //console.log(direction);
+    }
+    return (<TabBasic {...args} onChange={handleChange} onTabClick={handleTabClick} handleEdit={handleEdit} onTabScroll={handleTabScroll} />)
 }
+
 const tabBarStyle = {
 
 };
-
-const handleEdit = (targetKey, action) => {
-    //console.log(targetKey);
-    //console.log(action);
-}
-
-const handleTabScroll = (direction) => {
-    //console.log(direction);
-}
 
 export const Basic = TabTemplate.bind({});
 Basic.args = {
@@ -107,10 +102,6 @@ Basic.args = {
     tabBarStyle: tabBarStyle,
     data: TabPaneItems(),
     // renderTabBar: () => { },
-    // onChange: handleChange,
-    onEdit: handleEdit,
-    // onTabClick: handleTabClick,
-    onTabScroll: handleTabScroll,
 }
 
 Basic.propTypes = {

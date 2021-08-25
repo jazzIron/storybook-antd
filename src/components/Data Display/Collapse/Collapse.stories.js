@@ -1,7 +1,7 @@
 import React from "react";
+import { useArgs } from '@storybook/client-api';
 import Index from './Index';
 import CollapseBasic from './CollapseBasic';
-import CollapsePanel from './CollapsePanel';
 import PropTypes from 'prop-types';
 
 const collapsePanelItems = () => {
@@ -16,7 +16,6 @@ const collapsePanelItems = () => {
         });
     }
     return panelItems;
-    //return (panelItems.map(item => (<CollapsePanel collapsible={item.collapsible} header={item.header} key={item.key} showArrow={item.showArrow}>{item.content}</CollapsePanel>)))
 }
 
 export default {
@@ -70,14 +69,14 @@ export default {
     ], //내보내기 시 앞 뒤로 데코레이션 설정
 };
 
-const CollapseTemplate = (args) => <CollapseBasic {...args} />;
-
-const handleChange = (value) => console.log(value);
-
+const CollapseTemplate = ({ ...args }) => {
+    const [{ activeKey }, updateArgs] = useArgs();
+    const handleChange = (activeKey) => updateArgs({ activeKey: activeKey })
+    return (<CollapseBasic {...args} onChange={handleChange} />)
+}
 
 export const Basic = CollapseTemplate.bind({});
 Basic.args = {
-    onChange: handleChange(),
     children: collapsePanelItems()
 }
 
