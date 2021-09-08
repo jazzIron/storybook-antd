@@ -4,22 +4,21 @@ import { Checkbox } from 'antd';
 
 const CheckboxGroup = Checkbox.Group;
 
-const plainOptions = ['Apple', 'Pear', 'Orange'];
-const defaultCheckedList = ['Apple', 'Orange'];
 
-const CheckboxAll = () => {
+const CheckboxAll = ({ defaultValue, disabled, name, options, value, defaultCheckedList }) => {
   const [checkedList, setCheckedList] = useState(defaultCheckedList);
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
 
   const onChange = list => {
+    console.log(list);
     setCheckedList(list);
-    setIndeterminate(!!list.length && list.length < plainOptions.length);
-    setCheckAll(list.length === plainOptions.length);
+    setIndeterminate(!!list.length && list.length < options.length);
+    setCheckAll(list.length === options.length);
   };
 
   const onCheckAllChange = e => {
-    setCheckedList(e.target.checked ? plainOptions : []);
+    setCheckedList(e.target.checked ? options : []);
     setIndeterminate(false);
     setCheckAll(e.target.checked);
   };
@@ -29,7 +28,7 @@ const CheckboxAll = () => {
       <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
         Check all
       </Checkbox>
-      <CheckboxGroup options={plainOptions} value={checkedList} onChange={onChange} />
+      <CheckboxGroup options={options} value={checkedList} onChange={onChange} />
     </>
   );
 };
